@@ -48,7 +48,13 @@ export class QuestionsComponent implements OnInit {
     else if(data?.type == 'written')
        {
          console.log("value",this.value[i]);
-         this.utilityService.updateAnswer(data,this.value[i])
+         if(this.value[i].length == 0)
+          {
+           this.utilityService.showError("Question","Please enter answer first!")
+          }
+          else {
+            this.utilityService.updateAnswer(data,this.value[i])
+          }
        }
        this.getQuestions()
       this.optionA = [];this.optionB = [];this.optionC = [];this.optionD = [];this.value = [];

@@ -24,7 +24,7 @@ import { NavbarComponent } from './navbar/navbar.component';
     FormsModule,
     ReactiveFormsModule,
     ToastrModule.forRoot({
-      timeOut: 5000,
+      timeOut: 3000,
       positionClass: 'toast-top-right',
       preventDuplicates: true,
     }),
