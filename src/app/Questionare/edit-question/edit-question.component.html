@@ -1,0 +1,61 @@
+<div class="row justify-content-center align-content-center" style="height: 80vh;">
+    <div class="col-lg-6 col-md-8 col-12">
+        <h3 class="mb-3">Update Question</h3>
+        <div class="card border px-3">
+            <div>
+                <h5 class="my-3 text-bold">Select type of question</h5>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="single" [(ngModel)] = "type">
+                    <label class="form-check-label" for="inlineRadio1">Single choice</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="multiple" [(ngModel)] = "type">
+                    <label class="form-check-label" for="inlineRadio2">Multiple choice</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio3" value="written" [(ngModel)] = "type">
+                    <label class="form-check-label" for="inlineRadio3">Written</label>
+                </div>
+            </div>  
+            <div class="my-4">
+                <form [formGroup] = "question" (ngSubmit) = "onSubmit()" *ngIf = "type != 'written'">
+                    <div class="mb-3">
+                      <label for="exampleInputEmail1" class="form-label">Enter your question</label>
+                      <input type="text" class="form-control" id="exampleInputEmail1" formControlName = "text">
+                    </div>
+                    <div class="row" formGroupName = "options">
+                       <div class="col">
+                        <div class="mb-3">
+                            <label for="exampleInputEmail1" class="form-label">Option A</label>
+                            <input type="text" class="form-control" id="exampleInputEmail1" formControlName = "optionA">
+                        </div>
+                        <div class="mb-3">
+                            <label for="exampleInputEmail1" class="form-label">Option C</label>
+                            <input type="text" class="form-control" id="exampleInputEmail1" formControlName = "optionC">
+                        </div>
+                       </div>
+                       <div class="col">
+                        <div class="mb-3">
+                            <label for="exampleInputEmail1" class="form-label">Option B</label>
+                            <input type="text" class="form-control" id="exampleInputEmail1" formControlName = "optionB">
+                        </div>
+                        <div class="mb-3">
+                            <label for="exampleInputEmail1" class="form-label">Option D</label>
+                            <input type="text" class="form-control" id="exampleInputEmail1" formControlName = "optionD">
+                        </div>
+                       </div>
+                    </div>                   
+                    <button type="submit" class="btn btn-primary" [disabled] = "!question.valid">Submit</button>
+                </form>
+                <form [formGroup] = "writtenQuestion" (ngSubmit) = "onSubmit()" *ngIf = "type == 'written'">
+                    <div class="mb-3">
+                      <label for="exampleInputEmail1" class="form-label">Enter your question</label>
+                      <input type="text" class="form-control" id="exampleInputEmail1" formControlName = "text">
+                    </div>
+                    <button type="submit" class="btn btn-primary my-2" [disabled] = "!writtenQuestion.valid">update</button>
+                </form>
+            </div>
+            
+        </div>
+    </div>
+</div>

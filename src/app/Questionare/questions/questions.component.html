@@ -1,0 +1,108 @@
+<div class="row mt-5">
+    <div class="col-md-6 col-12 px-5">
+      <h5 class="mt-5">Unanswered Questions</h5>
+      <p class="mb-5"><small>Lets answer these questions</small></p>
+      <h5 *ngIf = "questions.length == 0">No data found!! please add some questions</h5>
+      <div class="card border mb-3 p-3" *ngFor = "let ques of questions; let i = index">
+          <p><b>Questions # {{i+1}}</b></p>
+          <p>{{ques?.text}}</p>
+          <div *ngIf = "ques?.type == 'written'">
+            <div class="mb-3">
+              <label for="exampleFormControlTextarea1" class="form-label">Example textarea</label>
+              <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" maxlength="255" minlength="1" [(ngModel)]="value[i]" (ngModelChange)="valueChange(value,i)"></textarea>
+           </div>
+          </div>
+       
+          <div *ngIf = "ques?.type == 'multiple'">
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value = false [(ngModel)] = optionA[i]>
+                <label class="form-check-label" for="inlineCheckbox1">{{ques?.optionA}}</label>
+            </div>
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="checkbox" id="inlineCheckbox2" [(ngModel)] = optionB[i]>
+                <label class="form-check-label" for="inlineCheckbox2">{{ques?.optionB}}</label>
+              </div>
+              <div class="form-check form-check-inline" *ngIf = "ques?.optionC">
+                <input class="form-check-input" type="checkbox" id="inlineCheckbox2" [(ngModel)] = optionC[i]>
+                <label class="form-check-label" for="inlineCheckbox2">{{ques?.optionC}}</label>
+              </div>
+              <div class="form-check form-check-inline" *ngIf = "ques?.optionD">
+                <input class="form-check-input" type="checkbox" id="inlineCheckbox2" [(ngModel)] = optionD[i]>
+                <label class="form-check-label" for="inlineCheckbox2">{{ques?.optionD}}</label>
+              </div>
+         </div>
+         <div *ngIf = "ques?.type == 'single'">
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="A{{i}}" id="inlineRadio1" value = "A" [(ngModel)] = optionA[i]>
+                <label class="form-check-label" for="inlineRadio1">{{ques?.optionA}}</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="A{{i}}" id="inlineRadio2" value= "B" [(ngModel)] = optionB[i]>
+                <label class="form-check-label" for="inlineRadio2">{{ques?.optionB}}</label>
+            </div>
+            <div class="form-check form-check-inline" *ngIf = "ques?.optionC">
+                <input class="form-check-input" type="radio" name="A{{i}}" id="inlineRadio1" value= "C" [(ngModel)] = optionC[i]>
+                <label class="form-check-label" for="inlineRadio1">{{ques?.optionC}}</label>
+            </div>
+            <div class="form-check form-check-inline" *ngIf = "ques?.optionD">
+                <input class="form-check-input" type="radio" name="A{{i}}" id="inlineRadio2" value= "D" [(ngModel)] = optionD[i]>
+                <label class="form-check-label" for="inlineRadio2">{{ques?.optionD}}</label>
+            </div>
+         </div>
+         <button class="btn btn-block mt-3 btn-secondary" (click) = "submitAnswer(ques,i)">Submit Answer</button>
+      </div>
+    
+    </div>
+    <div class = "col-md-6 col-12 px-5">
+      <h5 class="mt-5">Answered Questions</h5>
+      <p class="mb-5"><small>All answered question are here</small></p>
+      <h5 *ngIf = "answeredQuestions.length == 0">No data found!! please add some questions</h5>
+        <div class="card border mb-3 p-3 mb-3" *ngFor = "let ques of answeredQuestions; let i = index">
+            <p><b>Questions # {{i+1}}</b></p>
+            <p>{{ques?.text}}</p>
+            <div *ngIf = "ques?.type == 'written'">
+              <div class="mb-3">
+                <label for="exampleFormControlTextarea1" class="form-label">Example textarea</label>
+                <textarea class="form-control" id="exampleFormControlTextarea1" rows="2" maxlength="255" minlength="1" value = {{ques?.textAnswer}} readonly></textarea>
+             </div>
+            </div>
+         
+            <div *ngIf = "ques?.type == 'multiple'">
+              <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="checkbox" id="inlineCheckbox11" [checked] = ques?.selectedOptionA disabled>
+                  <label class="form-check-label" for="inlineCheckbox1">{{ques?.optionA}}</label>
+              </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="checkbox" id="inlineCheckbox22" [checked] = ques?.selectedOptionB disabled>
+                  <label class="form-check-label" for="inlineCheckbox2">{{ques?.optionB}}</label>
+                </div>
+                <div class="form-check form-check-inline" *ngIf = "ques?.optionC">
+                  <input class="form-check-input" type="checkbox" id="inlineCheckbox33" [checked] = ques?.selectedOptionC disabled>
+                  <label class="form-check-label" for="inlineCheckbox2">{{ques?.optionC}}</label>
+                </div>
+                <div class="form-check form-check-inline" *ngIf = "ques?.optionD">
+                  <input class="form-check-input" type="checkbox" id="inlineCheckbox44" [checked] = ques?.selectedOptionD  disabled>
+                  <label class="form-check-label" for="inlineCheckbox2">{{ques?.optionD}}</label>
+                </div>
+           </div>
+           <div *ngIf = "ques?.type == 'single'">
+              <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" name="A{{i}}" id="inlineRadio1" [checked] = "ques?.selectedOptionA  == 'A'" disabled> 
+                  <label class="form-check-label" for="inlineRadio1">{{ques?.optionA}}</label>
+              </div>
+              <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" name="A{{i}}" id="inlineRadio2" [checked] = "ques?.selectedOptionB  == 'B'" disabled>
+                  <label class="form-check-label" for="inlineRadio2">{{ques?.optionB}}</label>
+              </div>
+              <div class="form-check form-check-inline" *ngIf = "ques?.optionC">
+                  <input class="form-check-input" type="radio" name="A{{i}}" id="inlineRadio3" [checked] = "ques?.selectedOptionC  == 'C'" disabled>
+                  <label class="form-check-label" for="inlineRadio3">{{ques?.optionC}}</label>
+              </div>
+              <div class="form-check form-check-inline" *ngIf = "ques?.optionD">
+                  <input class="form-check-input" type="radio" name="A{{i}}" id="inlineRadio4"  [checked] = "ques?.selectedOptionD  == 'D'" disabled>
+                  <label class="form-check-label" for="inlineRadio4">{{ques?.optionD}}</label>
+              </div>
+           </div>
+        </div>
+    </div>
+</div>
